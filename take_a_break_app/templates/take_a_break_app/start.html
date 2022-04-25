@@ -1,8 +1,8 @@
-{% extends "blog/layout.html" %}
+{% extends "take_a_break_app/layout.html" %}
 {% load static %}
 
 {% block stylesheet %}
-<link href="{% static 'blog/start.css' %}" rel="stylesheet">
+<link href="{% static 'take_a_break_app/start.css' %}" rel="stylesheet">
 {% endblock %}
 
 
@@ -12,7 +12,7 @@
     <h2>Please Take a break!</h2>
 </div>
 <div id = "links">
-    <a href="{% url 'blog:still_building' %}"> My_cooking recipe!</a>
+    <a href="{% url 'take_a_break_app:still_building' %}"> My_cooking recipe!</a>
 </div>
 {% endblock %}
 

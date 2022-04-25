@@ -1,9 +1,9 @@
-{% extends "blog/layout.html" %}
+{% extends "take_a_break_app/layout.html" %}
 {% load static %}
 
 
 {% block stylesheet %}
-<link href="{% static 'blog/still_building.css' %}" rel="stylesheet">
+<link href="{% static 'take_a_break_app/still_building.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -11,6 +11,6 @@
     <h1>Sorry! this part of my website is still under construction!</h1>
 </div>
 <div id="building_image">
-    <img src="{% static 'blog/construction.jpg' %}">
+    <img src="{% static 'take_a_break_app/construction.jpg' %}">
 </div>
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends "take_a_break_app/layout.html" %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'take_a_break_app/main.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<div id = "start_intro">
+    <h1>Hello, I am Chenxuan Wei !</h1>
+    <h2>Please Take a break!</h2>
+</div>
+<div id = "links">
+    <a href="{% url 'take_a_break_app:still_building' %}"> Add page</a>
+</div>
+<div id ="login">
+    <table>
+        
+        {% for w in website %}
+            <tr>
+                <td>w</td>
+            </tr>
+        {% endfor %}    
+        
+    </table>
+</div>
+<audio>
+{% endblock %}
+
+

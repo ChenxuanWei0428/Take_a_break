@@ -1,3 +1,46 @@
 #start_intro {
     text-align: center;
 }
+
+#link a{
+    text-decoration: none;
+    text-align: center;
+}
+
+#link a:active {
+    border: 0ch;
+}
+#login {
+    margin: auto;
+    width: 50%;
+    background-color: aqua;
+}
+
+
+
+nav a{
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+    font-size: 125%;
+    border: solid 1px #bc9f81;
+    margin: 10px;
+    width: 100px;
+}
+
+nav a:active{
+    color: aqua;
+}
+
+.flex_con{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+.flex_con div {
+    border: solid 1px black;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 3px 3px 3px black;
+}

@@ -3,25 +3,20 @@
 }
 
 img {
-    max-width: 60%;
-    max-height: 60%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #building_text {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 48px;
+    font-size: 36px;
 }
 
 #building_image {
-    width: 200px;
     height: 200px;
     margin: 20px;
-    background-color: aqua;
-    border: solid 1px red;
-    border-radius: 5px;
     justify-content: center;
     display: flex;
-    box-shadow: 0px 0px 8px 8px rgb(35, 150, 199);
 }
 
 body {

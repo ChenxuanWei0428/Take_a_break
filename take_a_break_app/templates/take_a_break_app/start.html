@@ -3,6 +3,7 @@
 
 {% block stylesheet %}
 <link href="{% static 'take_a_break_app/start.css' %}" rel="stylesheet">
+
 {% endblock %}
 
 
@@ -12,8 +13,16 @@
     <h2>Please Take a break!</h2>
 </div>
 <div id = "links">
-    <a href="{% url 'take_a_break_app:still_building' %}"> My_cooking recipe!</a>
+    <a href="{% url 'take_a_break_app:main' %}"> Add page</a>
 </div>
+<div class="flex_con"> 
+    {% for w in website %}
+        <div title="a">{{w}}</div>
+    {% endfor %}  
+</div>
+
 {% endblock %}
+
+
 
 

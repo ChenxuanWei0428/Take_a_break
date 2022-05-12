@@ -12,15 +12,33 @@
     <h1>Hello, I am Chenxuan Wei !</h1>
     <h2>Please Take a break!</h2>
 </div>
-<div id = "links">
-    <a href="{% url 'take_a_break_app:main' %}"> Add page</a>
+<div id = "login_wap">
+    <div id = "all_form">
+        <div id = "login_form">
+            <form action = "{% url 'take_a_break_app:main' %}" method="post">
+                <div id = "form_item">
+                    <div class="form_text">
+                        Username
+                    </div>
+                    <input type="text", name="username">
+                    <div class="form_text">
+                        password
+                    </div>
+                    <input type="Password", name="password">
+                    <br>
+                    <div id = "submit_button">
+                        <input type="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id = "other_option">
+            <a href="{% url 'take_a_break_app:main' %}">login as a guest</a>
+            <a href="{% url 'take_a_break_app:still_building">recover your password</a>
+            <a href="{% url 'take_a_break_app:still_building">register</a>
+        </div>
+    </div>
 </div>
-<div class="flex_con"> 
-    {% for w in website %}
-        <div title="a">{{w}}</div>
-    {% endfor %}  
-</div>
-
 {% endblock %}
 
 

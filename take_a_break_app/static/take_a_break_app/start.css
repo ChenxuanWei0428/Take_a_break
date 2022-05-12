@@ -2,45 +2,61 @@
     text-align: center;
 }
 
-#link a{
-    text-decoration: none;
-    text-align: center;
-}
-
-#link a:active {
-    border: 0ch;
-}
-#login {
-    margin: auto;
-    width: 50%;
-    background-color: aqua;
-}
-
-
-
-nav a{
-    display: block;
-    text-align: center;
-    padding: 10px 0;
-    text-decoration: none;
-    font-size: 125%;
-    border: solid 1px #bc9f81;
-    margin: 10px;
-    width: 100px;
-}
-
-nav a:active{
-    color: aqua;
-}
-
-.flex_con{
-    display: flex;
-    flex-direction: row-reverse;
+#login_wap {
     justify-content: center;
+    display: flex;
 }
-.flex_con div {
-    border: solid 1px black;
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 3px 3px 3px black;
+
+#all_form {
+    display: flex;
+    width: 60%;
+    min-width: 200px;
 }
+
+#login_form {
+    justify-content: center;
+    display: flex;
+    background-color: aquamarine;
+    width: 40%;
+}
+
+#form_item > * {
+    margin: 5px;
+}
+
+.form_item {
+    justify-content: center;
+    display: flex;
+}
+
+#submit_button {
+    justify-content: center;
+    display: flex;
+}
+
+.form_text {
+    text-align: center;
+    font-size: 24px;
+}
+
+#other_option {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    background-color: yellowgreen;
+}
+
+#other_option > * {
+    margin: 5px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#other_option >a:visited{
+    color: blue;
+}
+
+#other_option > a:hover{
+    color: purple;
+}
+

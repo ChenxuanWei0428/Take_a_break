@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-
 # Create your views here.
 
 
@@ -18,3 +17,4 @@ def main(request):
     return render(request, "take_a_break_app/main.html", {
         "website": range(1, 5)
     })
+

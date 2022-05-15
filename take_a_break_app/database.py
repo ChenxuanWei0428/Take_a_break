@@ -3,7 +3,7 @@ This file contain all database operation for take_a_break_app
 """
 
 import pymysql
-from password import *
+from password import * #not in git for security reason
 
 def create_user(username, email, password):
     """

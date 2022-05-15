@@ -3,6 +3,7 @@ This file contain all database operation for take_a_break_app
 """
 
 import pymysql
+from password import *
 
 def create_user(username, email, password):
     """
@@ -11,7 +12,7 @@ def create_user(username, email, password):
     """
     db = pymysql.connect(host='localhost', 
                     user = "root",
-                    password="gfqpsmp123",
+                    password=ROOT_PASSWORD,
                     database='login')
     cursor = db.cursor()
     command = "INSERT INTO login (username, email, password) VALUES (\"{}\", \"{}\", \"{}\")".format(username, email, password)
@@ -37,7 +38,7 @@ if __name__ == "__main__":
     cursor.execute("SELECT VERSION()")
     data = cursor.fetchone()
     print ("Database version : %s " % data)
+    db.rollback()
     db.close()
 
 
-    print(create_user("test", "test", "test"))

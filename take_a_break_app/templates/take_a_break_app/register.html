@@ -1,0 +1,44 @@
+{% extends "take_a_break_app/layout.html" %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'take_a_break_app/register.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<div id = "register_intro">
+    <h1>Hello, I am Chenxuan Wei !</h1>
+    <h2>Please Register with the following information</h2>
+</div>
+<div id = "register_warp">
+    <div id = "register_form">
+        <form action = "{% url 'take_a_break_app:main' %}" method="post">
+            <div id = "form_item">
+                <div class="form_text">
+                    Username
+                </div>
+                <input type="text", name="username">
+                <div class="form_text">
+                    Email
+                </div>
+                <input type="text", name="username">
+                <div class="form_text">
+                    Password
+                </div>
+                <input type="Password", name="password">
+                <div class="form_text">
+                    Confirm password
+                </div>
+                <input type="Password", name="password">
+                <br>
+                <div id = "submit_button">
+                    <input type="submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+

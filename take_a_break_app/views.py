@@ -18,3 +18,6 @@ def main(request):
         "website": range(1, 5)
     })
 
+def register(request):
+    return render(request, "take_a_break_app/register.html")
+

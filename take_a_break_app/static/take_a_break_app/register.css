@@ -1,4 +1,39 @@
-#register_warp {
+#register_intro{
+    text-align: center;
+}
+
+#register_form {
     justify-content: center;
     display: flex;
+}
+
+#register_form form {
+    width: 40%;
+}
+
+#form_items {
+    display: flex;
+    flex-direction: column;
+}
+
+#form_items > * {
+    margin: 5px;
+}
+
+.form_item {
+    display: flex;
+}
+
+.form_item > * {
+    width: 50%;
+}
+
+#submit_button {
+    justify-content: center;
+    display: flex;
+}
+
+.form_text {
+    text-align: center;
+    font-size: 24px;
 }

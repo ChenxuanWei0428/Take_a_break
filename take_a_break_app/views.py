@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from . import database
 # Create your views here.
 
 
@@ -20,4 +20,7 @@ def main(request):
 
 def register(request):
     return render(request, "take_a_break_app/register.html")
+
+def register_complete(request, username, email, password):
+    pass
 

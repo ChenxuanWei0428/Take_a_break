@@ -12,7 +12,7 @@
     <h2>Please Register with the following information</h2>
 </div>
 <div id = "register_form">
-    <form action = "{% url 'take_a_break_app:main' %}" method="post">
+    <form action = "{% url 'take_a_break_app:register_complete' %}" method="post">
         <div id = "form_items">
             <div class = "form_item">
                 <div class="form_text">
@@ -24,7 +24,7 @@
                 <div class="form_text">
                     Email
                 </div>
-                <input type="text", name="username">
+                <input type="email", name="email">
             </div>
             <div class = "form_item">
                 <div class="form_text">

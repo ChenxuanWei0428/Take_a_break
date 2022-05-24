@@ -13,6 +13,7 @@
 </div>
 <div id = "register_form">
     <form action = "{% url 'take_a_break_app:register_complete' %}" method="post">
+        {% csrf_token %}
         <div id = "form_items">
             <div class = "form_item">
                 <div class="form_text">
@@ -36,7 +37,7 @@
                 <div class="form_text">
                     Confirm password
                 </div>
-                <input type="Password", name="password">
+                <input type="Password", name="comfirm_password">
             </div>
             <br>
             <div id = "submit_button">

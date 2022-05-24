@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from . import database
+from . import forms
+
 # Create your views here.
 
 
@@ -21,6 +23,12 @@ def main(request):
 def register(request):
     return render(request, "take_a_break_app/register.html")
 
-def register_complete(request, username, email, password):
-    pass
+def register_complete(request):
+    if (request.method == "POST"):
+        form = forms.Userinfo(request.POST)
+        if valid_username_format(form):
+            print()
+        return render(request, "take_a_break_app/register_complete.html")
 
+def valid_username_format(form):
+    pass

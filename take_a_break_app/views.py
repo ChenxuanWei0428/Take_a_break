@@ -27,8 +27,15 @@ def register_complete(request):
     if (request.method == "POST"):
         form = forms.Userinfo(request.POST)
         if valid_username_format(form):
-            print()
-        return render(request, "take_a_break_app/register_complete.html")
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            return render(request, "take_a_break_app/register_complete.html", {
+                "username": username,
+                "email": email,
+                "password": password,
+            })
 
 def valid_username_format(form):
-    pass
+    
+    return form.is_valid()

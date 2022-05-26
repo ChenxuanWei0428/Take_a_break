@@ -35,6 +35,8 @@ def register_complete(request):
                 "email": email,
                 "password": password,
             })
+        else:
+            return render(request, "take_a_break_app/register")
 
 def valid_username_format(form):
     

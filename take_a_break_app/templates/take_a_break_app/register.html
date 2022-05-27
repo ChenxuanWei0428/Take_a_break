@@ -12,38 +12,38 @@
     <h2>Please Register with the following information</h2>
 </div>
 <div id = "register_form">
-    <form action = "{% url 'take_a_break_app:register_complete' %}" method="post">
+    <form action = "{% url 'take_a_break_app:register' %}" method="post">
         {% csrf_token %}
-        <div id = "form_items">
+        <ul id = "form_items">
             <div class = "form_item">
                 <div class="form_text">
                     Username
                 </div>
-                <input type="text", name="username">
+                <li>{{ user_form.username }}</li>
             </div>
             <div class = "form_item">
                 <div class="form_text">
                     Email
                 </div>
-                <input type="email", name="email">
+                <li>{{ user_form.email }}</li>
             </div>
             <div class = "form_item">
                 <div class="form_text">
                     Password
                 </div>
-                <input type="Password", name="password">
+                <li>{{ user_form.password }}</li>
             </div>
             <div class = "form_item">
                 <div class="form_text">
-                    Confirm password
+                    Confirm your password
                 </div>
-                <input type="Password", name="comfirm_password">
+                <li>{{ user_form.confirm_password }}</li>
             </div>
             <br>
             <div id = "submit_button">
                 <input type="submit">
             </div>
-        </div>
+        </ul>
     </form>
 </div>
 {% endblock %}

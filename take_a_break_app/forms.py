@@ -1,7 +1,7 @@
 from django import forms
 
-class Userinfo(forms.Form):
+class User_info(forms.Form):
     username = forms.CharField(label = "username")
     email = forms.CharField(label="email")
     password = forms.CharField(label = "password")
-    confirmed_password = forms.CharField(label = "confirmed_password")
+    confirm_password = forms.CharField(label = "Please enter again your password")

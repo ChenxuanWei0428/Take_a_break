@@ -21,11 +21,8 @@ def main(request):
     })
 
 def register(request):
-    return render(request, "take_a_break_app/register.html")
-
-def register_complete(request):
     if (request.method == "POST"):
-        form = forms.Userinfo(request.POST)
+        form = forms.User_info(request.POST)
         if valid_username_format(form):
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
@@ -36,15 +33,34 @@ def register_complete(request):
                 "password": password,
             })
         else:
-            return render(request, "take_a_break_app/register")
-    else:
-        return render(request, "take_a_break_app/register_complete.html", {
-                "username": "username",
-                "email": "email",
-                "password": "password",
+            return render(request, "take_a_break_app/register.html", {
+                "user_form": form
             })
+    else:
+        return render(request, "take_a_break_app/register.html", {
+            "user_form": forms.User_info()
+        }) 
+
+def register_complete(request):
+    
+    return render(request, "take_a_break_app/register_complete.html", {
+            "username": "username",
+            "email": "email",
+            "password": "password",
+        })
 
 
 def valid_username_format(form):
     
-    return form.is_valid()
+    if form.is_valid():
+        username = form.cleaned_data["username"]
+        email = form.cleaned_data["email"]
+        password = form.cleaned_data["password"]
+        confirmed_password = form.cleaned_data["confirm_password"]
+        if (password != confirmed_password):
+            return False
+        return True
+    else:
+        return False
+
+    

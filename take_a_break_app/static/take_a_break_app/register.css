@@ -38,3 +38,7 @@
     text-align: center;
     font-size: 24px;
 }
+
+#error_message {
+    text-align: center;
+}

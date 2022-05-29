@@ -12,7 +12,7 @@ def create_user(username, email, password):
     """
     db = pymysql.connect(host='localhost', 
                     user = "root",
-                    password=ROOT_PASSWORD,
+                    password=password.ROOT_PASSWORD,
                     database='login')
     cursor = db.cursor()
     command = "INSERT INTO login (username, email, password) VALUES (\"{}\", \"{}\", \"{}\")".format(username, email, password)

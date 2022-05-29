@@ -19,25 +19,44 @@
                 <div class="form_text">
                     Username
                 </div>
-                <li>{{ user_form.username }}</li>
+                <li>{{ user_form.username }}
+                    <div class = "form_message">
+                        {{ username_message }}
+                    </div>
+                </li>
             </div>
             <div class = "form_item">
                 <div class="form_text">
                     Email
                 </div>
-                <li>{{ user_form.email }}</li>
+                <li>{{ user_form.email }}
+                    <div class = "form_message">
+                        {{ email_message }}
+                    </div>
+                </li>
             </div>
             <div class = "form_item">
                 <div class="form_text">
                     Password
                 </div>
-                <li>{{ user_form.password }}</li>
+                <li>{{ user_form.password }}
+                    <div class = "form_message">
+                        {{ password_message }}
+                    </div>
+                </li>
             </div>
             <div class = "form_item">
                 <div class="form_text">
                     Confirm your password
                 </div>
-                <li>{{ user_form.confirm_password }}</li>
+                <li>{{ user_form.confirm_password }}
+                    <div class = "form_message">
+                        {{ confirm_password_message }}
+                    </div>
+                </li>
+            </div>
+            <div id = "error_message">
+                {{ error_message }}
             </div>
             <br>
             <div id = "submit_button">

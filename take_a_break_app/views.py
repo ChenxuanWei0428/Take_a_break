@@ -23,18 +23,26 @@ def main(request):
 def register(request):
     if (request.method == "POST"):
         form = forms.User_info(request.POST)
-        if valid_username_format(form):
+        response_id = valid_username_format(form)
+        if response_id == 0:
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
+            database.create_user(username, email, password)
             return render(request, "take_a_break_app/register_complete.html", {
                 "username": username,
                 "email": email,
                 "password": password,
             })
-        else:
+        elif response_id == 1:
             return render(request, "take_a_break_app/register.html", {
-                "user_form": form
+                "user_form": form,
+                "message": "Please enter valid character",
+            })
+        elif response_id == 2:
+             return render(request, "take_a_break_app/register.html", {
+                "user_form": form,
+                "confirm_password_message": "Please double check your password",
             })
     else:
         return render(request, "take_a_break_app/register.html", {
@@ -49,18 +57,21 @@ def register_complete(request):
             "password": "password",
         })
 
-
 def valid_username_format(form):
-    
+    '''
+    0: All good
+    1: invalid form
+    2: different password and confirm password
+    '''
     if form.is_valid():
         username = form.cleaned_data["username"]
         email = form.cleaned_data["email"]
         password = form.cleaned_data["password"]
         confirmed_password = form.cleaned_data["confirm_password"]
         if (password != confirmed_password):
-            return False
-        return True
+            return 2
+        return 0
     else:
-        return False
+        return 1
 
     

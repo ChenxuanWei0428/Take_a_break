@@ -3,7 +3,7 @@ This file contain all database operation for take_a_break_app
 """
 
 import pymysql
-from . import password #not in git for security reason
+from . import dbpassword #not in git for security reason
 
 def create_user(username, email, password):
     """
@@ -12,7 +12,7 @@ def create_user(username, email, password):
     """
     db = pymysql.connect(host='localhost', 
                     user = "root",
-                    password=password.ROOT_PASSWORD,
+                    password=dbpassword.ROOT_PASSWORD,
                     database='login')
     cursor = db.cursor()
     command = "INSERT INTO login (username, email, password) VALUES (\"{}\", \"{}\", \"{}\")".format(username, email, password)
@@ -26,7 +26,21 @@ def create_user(username, email, password):
     return True # shows add successfully
 
 
-
+def check_user(username, password):
+    db = pymysql.connect(host='localhost', 
+                    user = "root",
+                    password=dbpassword.ROOT_PASSWORD,
+                    database='login')
+    cursor = db.cursor()
+    command = ""
+    try:
+        cursor.execute(command)
+        db.commit()
+    except:
+        db.rollback()
+        return False #shows a error to backend
+    db.close()
+    return True # shows add successfully
 
 if __name__ == "__main__":
     print("Testing Databse \n")

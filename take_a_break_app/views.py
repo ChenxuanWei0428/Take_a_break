@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from . import database
 from . import forms
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -28,11 +30,17 @@ def register(request):
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
-            database.create_user(username, email, password)
-            return render(request, "take_a_break_app/register_complete.html", {
-                "username": username,
-                "email": email,
-                "password": password,
+            if database.create_user(username, email, password):
+                # go back to start
+                return render(request, "take_a_break_app/register_complete.html", {
+                    "username": username,
+                    "email": email,
+                    "password": password,
+                })
+            else:
+                return render(request, "take_a_break_app/register.html", {
+                "user_form": form,
+                "message": "Database did not work correctly",
             })
         elif response_id == 1:
             return render(request, "take_a_break_app/register.html", {
@@ -53,8 +61,6 @@ def register_complete(request):
     
     return render(request, "take_a_break_app/register_complete.html", {
             "username": "username",
-            "email": "email",
-            "password": "password",
         })
 
 def valid_username_format(form):

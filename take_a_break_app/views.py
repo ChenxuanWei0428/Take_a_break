@@ -19,13 +19,14 @@ def still_building(request):
 
 def main(request):
     return render(request, "take_a_break_app/main.html", {
-        "website": range(1, 5)
+        "user": "test",
     })
 
 def register(request):
     if (request.method == "POST"):
         form = forms.User_info(request.POST)
         response_id = valid_username_format(form)
+        error_message = ""
         if response_id == 0:
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
@@ -43,15 +44,15 @@ def register(request):
                 "message": "Database did not work correctly",
             })
         elif response_id == 1:
-            return render(request, "take_a_break_app/register.html", {
-                "user_form": form,
-                "message": "Please enter valid character",
-            })
+            error_message = "Please enter valid character"
         elif response_id == 2:
-             return render(request, "take_a_break_app/register.html", {
+            error_message = "Please double check your password"
+        elif response_id == 3:
+            error_message =  "User already exist"
+        return render(request, "take_a_break_app/register.html", {
                 "user_form": form,
-                "confirm_password_message": "Please double check your password",
-            })
+                "error_message": error_message,
+        })
     else:
         return render(request, "take_a_break_app/register.html", {
             "user_form": forms.User_info()
@@ -76,6 +77,8 @@ def valid_username_format(form):
         confirmed_password = form.cleaned_data["confirm_password"]
         if (password != confirmed_password):
             return 2
+        if database.check_user_exist(username):
+            return 3 
         return 0
     else:
         return 1

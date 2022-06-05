@@ -56,7 +56,11 @@
                 </li>
             </div>
             <div id = "error_message">
-                {{ error_message }}
+                {% if error_message %}
+                    {{ error_message }}
+                {% else %}
+                    <br>
+                {% endif %}
             </div>
             <br>
             <div id = "submit_button">

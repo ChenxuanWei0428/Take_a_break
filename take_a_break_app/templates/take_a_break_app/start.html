@@ -15,7 +15,8 @@
 <div id = "login_wap">
     <div id = "all_form">
         <div id = "login_form">
-            <form action = "{% url 'take_a_break_app:start' %}" method="post">
+            <form action = "{% url 'take_a_break_app:main' %}" method="post">
+                {% csrf_token %}
                 <div id = "form_item">
                     <div class="form_text">
                         Username

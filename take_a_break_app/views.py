@@ -10,9 +10,11 @@ from django.urls import reverse
 
 
 def start(request):
-    return render(request, "take_a_break_app/start.html", {
-        "website": range(1, 5)
-    })
+    if request.method == "post":
+        return render(request, "take_a_break_app/main.html")
+    else:
+        return render(request, "take_a_break_app/start.html", {
+        })
 
 def still_building(request):
     return render(request, "take_a_break_app/still_building.html")

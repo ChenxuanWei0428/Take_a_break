@@ -4,7 +4,7 @@ This file contain all database operation for take_a_break_app
 
 import pymysql
 from . import dbpassword #not in git for security reason
-
+#import dbpassword
 
 def create_user(username, email, password):
     """
@@ -27,6 +27,10 @@ def create_user(username, email, password):
     return True # shows add successfully
 
 def check_user_exist(username):
+    """
+    True = user exist or error
+    False = no such user exist
+    """
     db = pymysql.connect(host='localhost', 
                     user = "root",
                     password=dbpassword.ROOT_PASSWORD,
@@ -37,7 +41,7 @@ def check_user_exist(username):
         cursor.execute(command)
         results = cursor.fetchall()
         db.close()
-        return len(results) == 0 #false = no such user exist
+        return len(results) == 0 #false = no such user exist, or ==1 mean exist
     except:
         db.rollback()
         return True #shows a error to backend
@@ -54,19 +58,19 @@ def check_user(username, password):
                     password=dbpassword.ROOT_PASSWORD,
                     database='login')
     cursor = db.cursor()
-    command = "SELECT username, password FROM LOGIN where username={}".format(username)
+    command = "SELECT username, password FROM LOGIN where username=\"{}\"".format(username)
     try:
         cursor.execute(command)
         results = cursor.fetchall()
+        db.close()
         if (len(results) == 0):
             return 2
         else: 
-            print(results)
+            # result will be in form of ((username, password),), so check [1][1]
+            return results[0][1] == password 
     except:
         db.rollback()
-        return False #shows a error to backend
-    db.close()
-    return 0 # shows add successfully
+        return 3 #shows a error to backend
 
 if __name__ == "__main__":
     print("Testing Databse \n")
@@ -78,7 +82,7 @@ if __name__ == "__main__":
     cursor.execute("SELECT VERSION()")
     data = cursor.fetchone()
     print ("Database version : %s " % data)
-    check_user("admin", "password")
+    print(check_user("admin", "password"))
 
     db.rollback()
     db.close()

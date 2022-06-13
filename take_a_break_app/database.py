@@ -6,6 +6,26 @@ import pymysql
 from . import dbpassword #not in git for security reason
 #import dbpassword
 
+
+def get_list_of_web(username):
+    """
+    get all user's favourite website and add to webpage
+    require: user must exist
+    """
+    db = pymysql.connect(host='localhost', 
+                    user = "root",
+                    password=dbpassword.ROOT_PASSWORD,
+                    database='login')
+    command = "SELECT * from User where username=\"{}\"".format(username)
+    try:
+        cursor.execute(command)
+        results = cursor.fetchall()
+        db.close()
+        return 1 # todo
+    except:
+        db.rollback()
+        return False #shows a error to backend
+
 def create_user(username, email, password):
     """
     create a user with the given information, validation of information will be done before this

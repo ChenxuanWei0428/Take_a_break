@@ -30,16 +30,20 @@ def create_user(username, email, password):
     """
     create a user with the given information, validation of information will be done before this
     create_user: string, string, string -> Bool
+    require: this method will not check if user is allowed to create
     """
     db = pymysql.connect(host='localhost', 
                     user = "root",
                     password=dbpassword.ROOT_PASSWORD,
                     database='login')
     cursor = db.cursor()
-    command = "INSERT INTO login (username, email, password) VALUES (\"{}\", \"{}\", \"{}\")".format(username, email, password)
+    command1 = "INSERT INTO login (username, email, password) VALUES (\"{}\", \"{}\", \"{}\")".format(username, email, password)
+    command2 = "INSERT INTO USER (username) VALUES (\"{}\")".format(username)
+    commands = [command1, command2]
     try:
-        cursor.execute(command)
-        db.commit()
+        for command in commands:
+            cursor.execute(command)
+            db.commit()
     except:
         db.rollback()
         return False #shows a error to backend

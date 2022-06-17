@@ -13,8 +13,7 @@
 
 #form_items {
     display: flex;
-    flex-direction: column;
-    list-style-type: none;
+    flex-direction: row;
 }
 
 #form_items > * {
@@ -23,10 +22,7 @@
 
 .form_item {
     display: flex;
-}
-
-.form_item > * {
-    width: 50%;
+    flex-direction: column;
 }
 
 #submit_button {
@@ -35,8 +31,7 @@
 }
 
 .form_text {
-    text-align: center;
-    font-size: 24px;
+    font-size: 2vw;
 }
 
 #error_message {

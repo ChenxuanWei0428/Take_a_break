@@ -38,7 +38,7 @@ def create_user(username, email, password):
                     database='login')
     cursor = db.cursor()
     command1 = "INSERT INTO login (username, email, password) VALUES (\"{}\", \"{}\", \"{}\")".format(username, email, password)
-    command2 = "INSERT INTO USER (username) VALUES (\"{}\")".format(username)
+    command2 = "INSERT INTO USER (username, websites) VALUES (\"{}\", \{\})".format(username)
     commands = [command1, command2]
     try:
         for command in commands:

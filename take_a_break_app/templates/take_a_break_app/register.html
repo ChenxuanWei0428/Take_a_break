@@ -14,59 +14,41 @@
 <div id = "register_form">
     <form action = "{% url 'take_a_break_app:register' %}" method="post">
         {% csrf_token %}
-        <ul id = "form_items">
-            <div class = "form_item">
-                <div class="form_text">
-                    Username
-                </div>
-                <li>{{ user_form.username }}
-                    <div class = "form_message">
-                        {{ username_message }}
-                    </div>
-                </li>
+        <div class = "form_item">
+            <div class="form_text">
+                Username
             </div>
-            <div class = "form_item">
-                <div class="form_text">
-                    Email
-                </div>
-                <li>{{ user_form.email }}
-                    <div class = "form_message">
-                        {{ email_message }}
-                    </div>
-                </li>
+            <input id="username" type="text">
+        </div>
+        <div class = "form_item">
+            <div class="form_text">
+                Email
             </div>
-            <div class = "form_item">
-                <div class="form_text">
-                    Password
-                </div>
-                <li>{{ user_form.password }}
-                    <div class = "form_message">
-                        {{ password_message }}
-                    </div>
-                </li>
+            <input id="email" type="email">
+        </div>
+        <div class = "form_item">
+            <div class="form_text">
+                Password
             </div>
-            <div class = "form_item">
-                <div class="form_text">
-                    Confirm your password
-                </div>
-                <li>{{ user_form.confirm_password }}
-                    <div class = "form_message">
-                        {{ confirm_password_message }}
-                    </div>
-                </li>
+            <input id="password" type="password">
+        </div>
+        <div class = "form_item">
+            <div class="form_text">
+                Confirm your password
             </div>
-            <div id = "error_message">
-                {% if error_message %}
-                    {{ error_message }}
-                {% else %}
-                    <br>
-                {% endif %}
-            </div>
-            <br>
-            <div id = "submit_button">
-                <input type="submit">
-            </div>
-        </ul>
+            <input id="confirm_password" type="password">
+        </div>
+        <div id = "error_message">
+            {% if error_message %}
+                {{ error_message }}
+            {% else %}
+                <br>
+            {% endif %}
+        </div>
+        <br>
+        <div id = "submit_button">
+            <input type="submit">
+        </div>
     </form>
 </div>
 {% endblock %}

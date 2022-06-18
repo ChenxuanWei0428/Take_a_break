@@ -10,6 +10,7 @@ from . import dbpassword #not in git for security reason
 def get_list_of_web(username):
     """
     get all user's favourite website and add to webpage
+    it will return a dic of websites in form of {priority: urls}
     require: user must exist
     """
     db = pymysql.connect(host='localhost', 
@@ -20,6 +21,8 @@ def get_list_of_web(username):
     try:
         cursor.execute(command)
         results = cursor.fetchall()
+        webs = results[0][1]
+        return webs
         db.close()
         return 1 # todo
     except:
@@ -38,7 +41,7 @@ def create_user(username, email, password):
                     database='login')
     cursor = db.cursor()
     command1 = "INSERT INTO login (username, email, password) VALUES (\"{}\", \"{}\", \"{}\")".format(username, email, password)
-    command2 = "INSERT INTO USER (username, websites) VALUES (\"{}\", \{\})".format(username)
+    command2 = "INSERT INTO USER (username, websites) VALUES (\"{}\", JSON_ARRAY())".format(username)
     commands = [command1, command2]
     try:
         for command in commands:
@@ -52,15 +55,15 @@ def create_user(username, email, password):
 
 def check_user_exist(username):
     """
-    True = user exist or error
-    False = no such user exist
+    True: user does not exist
+    False: user does exist
     """
     db = pymysql.connect(host='localhost', 
                     user = "root",
                     password=dbpassword.ROOT_PASSWORD,
                     database='login')
     cursor = db.cursor()
-    command = "SELECT username FROM LOGIN where username={}".format(username)
+    command = "SELECT username FROM LOGIN where username=\"{}\"".format(username)
     try:
         cursor.execute(command)
         results = cursor.fetchall()
@@ -68,7 +71,7 @@ def check_user_exist(username):
         return len(results) == 0 #false = no such user exist, or ==1 mean exist
     except:
         db.rollback()
-        return True #shows a error to backend
+        return False #shows a error to backend
 
 def check_user(username, password):
     """

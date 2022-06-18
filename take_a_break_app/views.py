@@ -57,7 +57,7 @@ def register(request):
         })
     else:
         return render(request, "take_a_break_app/register.html", {
-            "user_form": forms.User_info()
+            "form": forms.User_info()
         }) 
 
 def register_complete(request):
@@ -79,7 +79,7 @@ def valid_username_format(form):
         confirmed_password = form.cleaned_data["confirm_password"]
         if (password != confirmed_password):
             return 2
-        if database.check_user_exist(username):
+        if not database.check_user_exist(username):
             return 3 
         return 0
     else:

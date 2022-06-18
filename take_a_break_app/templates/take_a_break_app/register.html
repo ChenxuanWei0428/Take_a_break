@@ -16,27 +16,27 @@
         {% csrf_token %}
         <div class = "form_item">
             <div class="form_text">
-                Username
+                <label for="username">Username</label>
             </div>
-            <input id="username" type="text">
+            <input id="username" name="username" type="text">
         </div>
         <div class = "form_item">
             <div class="form_text">
-                Email
+                <label for="email">Email</label>
             </div>
-            <input id="email" type="email">
+            <input id="email" name="email" type="text">
         </div>
         <div class = "form_item">
             <div class="form_text">
-                Password
+                <label for="password">Password</label>
             </div>
-            <input id="password" type="password">
+            <input id="password" name="password" type="password">
         </div>
         <div class = "form_item">
             <div class="form_text">
-                Confirm your password
+                <label for="password">confirm password</label>>
             </div>
-            <input id="confirm_password" type="password">
+            <input id="confirm_password" name="confirm_password" type="password">
         </div>
         <div id = "error_message">
             {% if error_message %}
@@ -47,7 +47,7 @@
         </div>
         <br>
         <div id = "submit_button">
-            <input type="submit">
+            <input type="submit" value="register">
         </div>
     </form>
 </div>

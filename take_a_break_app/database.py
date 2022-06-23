@@ -22,9 +22,8 @@ def get_list_of_web(username):
         cursor.execute(command)
         results = cursor.fetchall()
         webs = results[0][1]
-        return webs
         db.close()
-        return 1 # todo
+        return webs
     except:
         db.rollback()
         return False #shows a error to backend
@@ -55,6 +54,7 @@ def create_user(username, email, password):
 
 def check_user_exist(username):
     """
+    check if the user exist alread
     True: user does not exist
     False: user does exist
     """
@@ -75,6 +75,7 @@ def check_user_exist(username):
 
 def check_user(username, password):
     """
+    check if the user enter the correct password
     0: valid user + correct password
     1: incorrect password
     2: username did not find

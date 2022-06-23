@@ -11,7 +11,7 @@ from django.urls import reverse
 
 def start(request):
     if request.method == "post":
-        return render(request, "take_a_break_app/main.html")
+        form = forms.User_info(request.POST)
     else:
         return render(request, "take_a_break_app/start.html", {
         })
@@ -56,9 +56,7 @@ def register(request):
                 "error_message": error_message,
         })
     else:
-        return render(request, "take_a_break_app/register.html", {
-            "form": forms.User_info()
-        }) 
+        return render(request, "take_a_break_app/register.html") 
 
 def register_complete(request):
     

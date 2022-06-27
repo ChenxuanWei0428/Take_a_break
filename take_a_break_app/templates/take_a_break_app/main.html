@@ -8,10 +8,14 @@
 
 {% block body %}
 <div id = "start_intro">
-    <h1>Hello, I am Chenxuan Wei !</h1>
-    <h2>Welcome to my take a break app!</h2>
-    {{ username }}
-    {{ list_of_web }}
+    {% if username %}
+        <h1>Hello, {{ username }} !</h1>
+    {% else %}
+        <h1>If you want, please register in this <a href="{% url 'take_a_break_app:register' %}">link</a>
+        </h1>
+    {% endif %}
+    <br>
+    the following is the website you have
 </div>
 
 {% endblock %}

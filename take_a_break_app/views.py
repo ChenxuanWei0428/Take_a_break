@@ -24,6 +24,9 @@ def main(request):
         "user": "test",
     })
 
+def recover_account(request):
+    pass
+
 def register(request):
     if (request.method == "POST"):
         form = forms.User_info(request.POST)

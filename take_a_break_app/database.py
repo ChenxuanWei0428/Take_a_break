@@ -6,6 +6,8 @@ import pymysql
 from . import dbpassword #not in git for security reason
 #import dbpassword
 
+#this file was used before sqlite migration get implemeted, now it is no longer used
+# leave here for reference use only
 
 def get_list_of_web(username):
     """

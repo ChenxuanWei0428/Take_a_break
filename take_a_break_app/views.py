@@ -1,13 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from . import database 
 from . import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
-# Create your views here.
-
-
+from take_a_break_app.models import *
 
 def start(request):
     if request.method == "post":
@@ -36,17 +32,11 @@ def register(request):
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
-            if database.create_user(username, email, password):
-                # go back to start
-                return render(request, "take_a_break_app/register_complete.html", {
-                    "username": username,
-                    "email": email,
-                    "password": password,
-                })
-            else:
-                return render(request, "take_a_break_app/register.html", {
-                "user_form": form,
-                "message": "Database did not work correctly",
+            user(username=username, email=email, password=password)
+            return render(request, "take_a_break_app/register_complete.html", {
+                "username": username,
+                "email": email,
+                "password": password,
             })
         elif response_id == 1:
             error_message = "Please enter valid character"
@@ -62,7 +52,6 @@ def register(request):
         return render(request, "take_a_break_app/register.html") 
 
 def register_complete(request):
-    
     return render(request, "take_a_break_app/register_complete.html", {
             "username": "username",
         })
@@ -80,10 +69,20 @@ def valid_username_format(form):
         confirmed_password = form.cleaned_data["confirm_password"]
         if (password != confirmed_password):
             return 2
-        if not database.check_user_exist(username):
+        if not check_user_exist(username):
             return 3 
         return 0
     else:
         return 1
 
-    
+# check if user exist already
+def check_user_exist(username):
+    try:
+        user_check = user.objects.get(username=username)
+        return False
+    except user.DoesNotExist:
+        return True
+
+def create_websites(name, url):
+    pass
+

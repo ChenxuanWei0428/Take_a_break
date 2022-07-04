@@ -7,10 +7,14 @@
 
 
 {% block body %}
-<h1>test</h1>
-<h1>{{ username }}</h1>
-<h1>{{ email }}</h1>
-<h1>{{ password }}</h1>
+<div id="info">
+    <p>Thanks {{username}} you completed your registtation</p>
+</div>
+<div id="go_back">
+    <p>Please click <a href="{% url 'take_a_break_app:start' %}">Here</a> to go back to login page</p>
+
+</div>
+
 {% endblock %}
 
 

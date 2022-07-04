@@ -3,11 +3,16 @@
 
 {% block stylesheet %}
 <link href="{% static 'take_a_break_app/start.css' %}" rel="stylesheet">
-
+<script src = "{% static 'take_a_break_app/start.js' %}" ></script>
 {% endblock %}
 
 
 {% block body %}
+<script>
+    document.onload = function() {
+        login_message();
+    };
+</script>
 <div id = "start_intro">
     <h1>Hello, I am Chenxuan Wei !</h1>
     <h2>Please Take a break!</h2>
@@ -19,16 +24,16 @@
                 {% csrf_token %}
                 <div id = "form_item">
                     <div class="form_text">
-                        Username
+                        <label for="username">Username</label>
                     </div>
-                    <input type="text", name="username">
+                    <input id="username" type="text", name="username">
                     <div class="form_text">
-                        password
+                        <label for="password">Password</label>
                     </div>
-                    <input type="Password", name="password">
+                    <input id="password" type="password", name="password">
                     <br>
                     <div id = "submit_button">
-                        <input type="submit">
+                        <input type="submit" value="login">
                     </div>
                 </div>
             </form>
@@ -40,6 +45,9 @@
         </div>
     </div>
 </div>
+
+<!-- This is for bring django variable to js-->
+<input type="hidden" id="error_message" name="error_message" value="{{ error_message }}">
 {% endblock %}
 
 

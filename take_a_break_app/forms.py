@@ -7,5 +7,5 @@ class User_info(forms.Form):
     confirm_password = forms.CharField(label="confirm_password")
 
 class User_login(forms.Form):
-    username = forms.CharField(label="username")
+    username = forms.CharField(label = "username")
     password = forms.CharField(label = "password")

@@ -3,14 +3,16 @@
 
 {% block stylesheet %}
 <link href="{% static 'take_a_break_app/start.css' %}" rel="stylesheet">
-<script src = "{% static 'take_a_break_app/start.js' %}" ></script>
 {% endblock %}
 
 
 {% block body %}
 <script>
-    document.onload = function() {
-        login_message();
+    window.onload = function() {
+        const message = document.getElementById("error_message").value;
+        if (message != "") {
+            alert(message);
+        }
     };
 </script>
 <div id = "start_intro">

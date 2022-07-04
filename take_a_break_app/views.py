@@ -24,7 +24,7 @@ def start(request):
                     "username": username,
                 })
             else:
-                error_message = "Unauthrized"
+                error_message = "Unauthrized login"
         else:
             error_message = "not valid from format"
     log(error_message)

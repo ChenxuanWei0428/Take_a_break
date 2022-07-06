@@ -22,6 +22,7 @@ def start(request):
             if user is not None:
                 return render(request, "take_a_break_app/main.html", {
                     "username": username,
+                    "list_of_websites":User_web.objects.get(user=user).websites.all(), 
                 })
             else:
                 error_message = "Unauthrized login"
@@ -37,7 +38,11 @@ def still_building(request):
 
 def main(request):
     return render(request, "take_a_break_app/main.html", {
-        "user": "test",
+    })
+
+def add(request):
+    return render(request, "take_a_break_app/add.html", {
+
     })
 
 def recover_account(request):
@@ -54,10 +59,9 @@ def register(request):
             password = form.cleaned_data["password"]
             user = User.objects.create_user(username, email, password)
             user.save()
+            User_web.objects.create(user=user)
             return render(request, "take_a_break_app/register_complete.html", {
                 "username": username,
-                "email": email,
-                "password": password,
             })
         elif response_id == 1:
             error_message = "Please enter valid character"
@@ -65,6 +69,7 @@ def register(request):
             error_message = "Please double check your password"
         elif response_id == 3:
             error_message =  "User already exist"
+        log(error_message)
         return render(request, "take_a_break_app/register.html", {
                 "user_form": form,
                 "error_message": error_message,
@@ -106,8 +111,13 @@ def check_user_exist(username):
     except User.DoesNotExist:
         return True
 
-def create_websites(name, url):
-    pass
+def create_websites(username, name, url):
+    web = Websites.objects.get(name=name, url=url)
+    if web is None:
+        web = Websites.objects.create(name=name, url=url)
+    user = User.objects.get(username=username)
+    User_web.objects.get(user=user).websites.add(web)
+    
 
 def log(message):
     logger = logging.getLogger(__name__)

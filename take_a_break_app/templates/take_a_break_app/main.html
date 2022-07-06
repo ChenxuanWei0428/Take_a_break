@@ -9,14 +9,33 @@
 {% block body %}
 <div id = "start_intro">
     {% if username %}
-        <h1>Hello, {{ username }} !</h1>
+        <p>Hello, {{ username }} !</p>
     {% else %}
-        <h1>If you want, please register in this <a href="{% url 'take_a_break_app:register' %}">link</a>
-        </h1>
+        <p>If you want, please register in this <a href="{% url 'take_a_break_app:register' %}">link</a>
+        </p>
     {% endif %}
     <br>
-    the following is the website you have
+</div>
+<div id="add">
+    <a herf="{% url 'take_a_break_app:add' %}">add a website</a>
+</div>
+<div id="web_text">
+    the following is the websites you have:
     {{ list_of_web }}
+    <div id="list_of_web">
+        {% for website in list_of_web %}
+        <div class="website">
+            {{ website.name }}
+            <br>
+            {{ website.url }}
+            <br>
+            {{ website }}
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
+
+
+<input type="hidden" id="index" name="index" value=0>
 {% endblock %}

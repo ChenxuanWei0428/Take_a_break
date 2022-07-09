@@ -1,0 +1,23 @@
+{% extends "take_a_break_app/layout.html" %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'take_a_break_app/add.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+<div id = "start_intro">
+    {% if username %}
+        <p>Hello, {{ username }}!</p>
+    {% else %}
+        <p>If you want, please register in this <a href="{% url 'take_a_break_app:register' %}">link</a>
+        </p>
+    {% endif %}
+    <br>
+</div>
+
+
+
+<input type="hidden" id="index" name="index" value=0>
+{% endblock %}

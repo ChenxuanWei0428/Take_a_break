@@ -1,8 +1,11 @@
+{% load static %}
+
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Take_a_break_app</title>
+        <link href="{% static 'take_a_break_app/layout.css' %}" rel="stylesheet">
         {% block stylesheet %}
         {% endblock %}
         <meta name="Take_a_break_app" content="This is a app that help people with time manangement when taking a break" />
@@ -10,6 +13,10 @@
 
 
     <body>
+        <div id="header">
+            Take a break logo
+        </div>
+
         {% block body %}
         {% endblock %}
     </body>

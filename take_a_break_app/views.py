@@ -22,7 +22,8 @@ def start(request):
             if user is not None:
                 return render(request, "take_a_break_app/main.html", {
                     "username": username,
-                    "list_of_websites":User_web.objects.get(user=user).websites.all(), 
+                    "list_of_websites":list(User_web.objects.get(user=user).websites.all()), 
+                    "index": 0
                 })
             else:
                 error_message = "Unauthrized login"

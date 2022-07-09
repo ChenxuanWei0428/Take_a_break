@@ -3,13 +3,14 @@
 
 {% block stylesheet %}
 <link href="{% static 'take_a_break_app/main.css' %}" rel="stylesheet">
+<script src = "{% static 'take_a_break_app/main.js'  %}" ></script>
 {% endblock %}
 
 
 {% block body %}
-<div id = "start_intro">
+<div id = "intro">
     {% if username %}
-        <p>Hello, {{ username }} !</p>
+        <p>Hello, {{ username }}!</p>
     {% else %}
         <p>If you want, please register in this <a href="{% url 'take_a_break_app:register' %}">link</a>
         </p>
@@ -19,23 +20,33 @@
 <div id="add">
     <a herf="{% url 'take_a_break_app:add' %}">add a website</a>
 </div>
-<div id="web_text">
-    the following is the websites you have:
-    {{ list_of_web }}
-    <div id="list_of_web">
-        {% for website in list_of_web %}
-        <div class="website">
-            {{ website.name }}
-            <br>
-            {{ website.url }}
-            <br>
-            {{ website }}
-        </div>
-        {% endfor %}
+<div id="main_function">
+    the following is the websites you set as favourite:
+    <div id="websites">
+        <table>
+            <tr>
+
+            {% for website in list_of_websites %}
+            {% if index == 4 %}  
+                {{ index }}
+                </tr>
+                <tr>
+            {% else %} 
+                {{ index += 1}}
+            {% endif %}
+            <div class="website">
+                {{ website.name }}
+                <br>
+                {{ website.url }}
+                <br>
+            </div>
+            {% endfor %}
+        </table>
+        
     </div>
 </div>
 
-
-
 <input type="hidden" id="index" name="index" value=0>
+
+
 {% endblock %}

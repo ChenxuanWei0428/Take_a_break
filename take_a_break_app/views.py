@@ -1,5 +1,3 @@
-from dataclasses import dataclass
-from distutils.log import error
 from django.http import HttpResponse
 from django.shortcuts import render
 from . import forms
@@ -8,8 +6,11 @@ from django.urls import reverse
 from take_a_break_app.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.core import serializers
 import logging
 import datetime
+
+
 
 def start(request):
     error_message = ""
@@ -20,11 +21,13 @@ def start(request):
             password = form.cleaned_data["password"]
             user = authenticate(username=username, password=password)
             if user is not None:
-                return render(request, "take_a_break_app/main.html", {
-                    "username": username,
-                    "list_of_websites":list(User_web.objects.get(user=user).websites.all()), 
-                    "index": 0
-                })
+                request.session["username"] = username
+                list_of_webs = list(User_web.objects.get(user=user).websites.all())
+                web_pks = []
+                for web in list_of_webs:
+                    web_pks.append(web.id)
+                request.session["list_of_webs"] = web_pks
+                return HttpResponseRedirect(reverse("take_a_break_app:main"))
             else:
                 error_message = "Unauthrized login"
         else:
@@ -38,7 +41,17 @@ def still_building(request):
     return render(request, "take_a_break_app/still_building.html")
 
 def main(request):
+    list_of_web_id = request.session["list_of_webs"]
+    log(list_of_web_id)
+    list_of_websites = []
+    for web_id in list_of_web_id:
+        website = Websites.objects.get(pk=web_id)
+        list_of_websites.append(website)
+    log(list_of_websites)
     return render(request, "take_a_break_app/main.html", {
+        "username" : request.session["username"],
+        "list_of_websites" : list_of_websites,
+        "index": 0
     })
 
 def add(request):
@@ -61,9 +74,7 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.save()
             User_web.objects.create(user=user)
-            return render(request, "take_a_break_app/register_complete.html", {
-                "username": username,
-            })
+            return HttpResponseRedirect(reverse("take_a_break_app:main"), kwargs={"username": username})
         elif response_id == 1:
             error_message = "Please enter valid character"
         elif response_id == 2:
@@ -72,16 +83,16 @@ def register(request):
             error_message =  "User already exist"
         log(error_message)
         return render(request, "take_a_break_app/register.html", {
-                "user_form": form,
+                "user_form": form, #todo, add value back
                 "error_message": error_message,
         })
     else:
         return render(request, "take_a_break_app/register.html") 
 
-def register_complete(request):
+def register_complete(request, username):
     return render(request, "take_a_break_app/register_complete.html", {
-            "username": "username",
-        })
+        "username": username,
+    })
 
 def valid_user_register_format(form):
     '''
@@ -122,5 +133,5 @@ def create_websites(username, name, url):
 
 def log(message):
     logger = logging.getLogger(__name__)
-    message = datetime.datetime.now().strftime("[%d/%b/%Y %X] ") + message
+    message = datetime.datetime.now().strftime("[%d/%b/%Y %X] ") + str(message)
     logger.critical(message)

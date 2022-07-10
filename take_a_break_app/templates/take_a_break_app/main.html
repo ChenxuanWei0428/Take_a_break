@@ -27,19 +27,21 @@
             <tr>
 
             {% for website in list_of_websites %}
-            {% if index == 4 %}  
-                {{ index }}
-                </tr>
-                <tr>
-            {% else %} 
-                {{ index += 1}}
-            {% endif %}
-            <div class="website">
-                {{ website.name }}
-                <br>
-                {{ website.url }}
-                <br>
-            </div>
+                {% if index == 4 %}  
+                    {{ index }}
+                    </tr>
+                    <tr>
+                {% else %} 
+                        <br>
+                {% endif %}
+                <div class="website">
+                    {{ website.name }}
+                    <br>
+                    {{ website.url }}
+                    <br>
+                </div>
+            {% empty %} 
+                No favourite websites yet, click "add websites" to create one!
             {% endfor %}
         </table>
         

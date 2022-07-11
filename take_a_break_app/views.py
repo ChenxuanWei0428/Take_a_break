@@ -10,8 +10,6 @@ from django.core import serializers
 import logging
 import datetime
 
-
-
 def start(request):
     error_message = ""
     if (request.method == "POST"):
@@ -42,12 +40,10 @@ def still_building(request):
 
 def main(request):
     list_of_web_id = request.session["list_of_webs"]
-    log(list_of_web_id)
     list_of_websites = []
     for web_id in list_of_web_id:
         website = Websites.objects.get(pk=web_id)
         list_of_websites.append(website)
-    log(list_of_websites)
     return render(request, "take_a_break_app/main.html", {
         "username" : request.session["username"],
         "list_of_websites" : list_of_websites,
@@ -62,7 +58,7 @@ def add(request):
 def recover_account(request):
     pass
 
-def register(request):
+def register_user(request):
     if (request.method == "POST"):
         form = forms.User_info(request.POST)
         response_id = valid_user_register_format(form)
@@ -135,3 +131,6 @@ def log(message):
     logger = logging.getLogger(__name__)
     message = datetime.datetime.now().strftime("[%d/%b/%Y %X] ") + str(message)
     logger.critical(message)
+
+
+    

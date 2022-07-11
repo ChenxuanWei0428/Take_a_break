@@ -21,19 +21,11 @@
     <a herf="{% url 'take_a_break_app:add' %}">add a website</a>
 </div>
 <div id="main_function">
-    the following is the websites you set as favourite:
-    <div id="websites">
-        <table>
-            <tr>
+    <form id="take_a_break">
+        the following is the websites you set as favourite:
 
+        <div id="websites">
             {% for website in list_of_websites %}
-                {% if index == 4 %}  
-                    {{ index }}
-                    </tr>
-                    <tr>
-                {% else %} 
-                        <br>
-                {% endif %}
                 <div class="website">
                     {{ website.name }}
                     <br>
@@ -43,9 +35,10 @@
             {% empty %} 
                 No favourite websites yet, click "add websites" to create one!
             {% endfor %}
-        </table>
-        
-    </div>
+        {% endwith %}        
+        </div>  
+    </form>
+    
 </div>
 
 <input type="hidden" id="index" name="index" value=0>

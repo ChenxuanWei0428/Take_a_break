@@ -9,3 +9,8 @@ class User_info(forms.Form):
 class User_login(forms.Form):
     username = forms.CharField(label = "username")
     password = forms.CharField(label = "password")
+
+class take_a_break(forms.Form):
+    time = forms.TimeField(label="time")
+    website = forms.CharField(label="website")
+    

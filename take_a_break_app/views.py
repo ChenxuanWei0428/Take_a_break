@@ -47,7 +47,6 @@ def main(request):
     return render(request, "take_a_break_app/main.html", {
         "username" : request.session["username"],
         "list_of_websites" : list_of_websites,
-        "index": 0
     })
 
 def add(request):
@@ -89,6 +88,11 @@ def register_complete(request, username):
     return render(request, "take_a_break_app/register_complete.html", {
         "username": username,
     })
+
+
+
+# all helpers
+
 
 def valid_user_register_format(form):
     '''

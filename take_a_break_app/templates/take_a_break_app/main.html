@@ -24,30 +24,29 @@
     <form id="take_a_break">
         the following is the websites you set as favourite:
         
-        <div id="websites">
+        <select name="website" id="websites"}>
+            <div id="default">
+            {% if websites.all %}
+                <option value="defalut">Please select a website!</option>
+                <option value="defalut">No favourite websites yet, click "add websites" to create one!</option>
+            {% else %}
+                <option value="defalut">Please select a website!</option>
+            {% endif %}
+            </div>
             {% for website in list_of_websites %}
                 <div class="website">
-                    {{ website.name }}
-                    <br>
-                    {{ website.url }}
-                    <br>
+                    <option value={{ website.url }}>{{ website.name }}</option>
                 </div>
-            {% empty %} 
-                No favourite websites yet, click "add websites" to create one!
             {% endfor %}
-        {% endwith %}        
-        </div>  
+        </select>    
         <div id="time">
-            
+            <input type="time" id="duration" name="duration">
         </div>
         <div id="submit">
-
+            <input type="submit" value="take_a_break">
         </div>
     </form>
     
 </div>
-
-<input type="hidden" id="index" name="index" value=0>
-
 
 {% endblock %}

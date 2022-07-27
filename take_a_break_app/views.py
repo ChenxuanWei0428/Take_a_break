@@ -39,23 +39,33 @@ def still_building(request):
     return render(request, "take_a_break_app/still_building.html")
 
 def main(request, guest):
-    if (guest):
-        return render(request, "take_a_break_app/main.html", {
-        })
-    try:
-        list_of_web_id = request.session["list_of_webs"]
-        list_of_websites = []
-        for web_id in list_of_web_id:
-            website = Websites.objects.get(pk=web_id)
-            list_of_websites.append(website)
-        return render(request, "take_a_break_app/main.html", {
-            "username" : request.session["username"],
-            "list_of_websites" : list_of_websites,
-        })
-    except KeyError:
-        # if no user info
-        return render(request, "take_a_break_app/main.html", {
-        })
+    if (request.method == "POST"):
+        form = forms.take_a_break(request.POST)
+        if form.is_valid():
+            time = form.cleaned_data["time"]
+            website = form.cleaned_data["website"]
+            
+    else:
+        if (guest):
+            return render(request, "take_a_break_app/main.html", {
+            })
+        try:
+            list_of_web_id = request.session["list_of_webs"]
+            list_of_websites = []
+            for web_id in list_of_web_id:
+                website = Websites.objects.get(pk=web_id)
+                list_of_websites.append(website)
+            return render(request, "take_a_break_app/main.html", {
+                "username" : request.session["username"],
+                "list_of_websites" : list_of_websites,
+            })
+        except KeyError:
+            # if no user info
+            return render(request, "take_a_break_app/main.html", {
+            })
+
+def take_a_break(request):
+    pass
 
 def add(request):
     return render(request, "take_a_break_app/add.html", {

@@ -21,7 +21,7 @@
     <a herf="{% url 'take_a_break_app:add' %}">add a website</a>
 </div>
 <div id="main_function">
-    <form id="take_a_break">
+    <form id="take_a_break" action = "{% url 'take_a_break_app:main' %}" method="post">
         the following is the websites you set as favourite:
         
         <select name="website" id="websites"}>

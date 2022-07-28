@@ -1,0 +1,17 @@
+#intro {
+    text-align: center;
+    font: 3vw;
+
+}
+
+#take_a_break {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+#form_items > *{
+    padding: 10px;
+}
+

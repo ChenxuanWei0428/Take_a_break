@@ -44,6 +44,7 @@ def main(request, guest):
         if form.is_valid():
             time = form.cleaned_data["time"]
             website = form.cleaned_data["website"]
+            return HttpResponseRedirect(reverse("take_a_break_app:break", kwargs={"time": time, "website": website}))
             
     else:
         if (guest):
@@ -55,6 +56,8 @@ def main(request, guest):
             for web_id in list_of_web_id:
                 website = Websites.objects.get(pk=web_id)
                 list_of_websites.append(website)
+            if len(list_of_websites) == 0:
+                list_of_websites = None
             return render(request, "take_a_break_app/main.html", {
                 "username" : request.session["username"],
                 "list_of_websites" : list_of_websites,

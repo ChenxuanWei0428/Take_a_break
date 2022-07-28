@@ -11,6 +11,6 @@ class User_login(forms.Form):
     password = forms.CharField(label = "password")
 
 class take_a_break(forms.Form):
-    time = forms.TimeField(label="time")
+    time = forms.CharField(label="time")
     website = forms.CharField(label="website")
     

@@ -28,14 +28,15 @@
                 Ready to take a break? enter the duration of your break and the website you want to go
             </div>
             <div id="websites">
+                <div class="form_text">
+                    Select a website:
+                </div>
                 <select name="website">
-                    <div id="default">
                     {% if list_of_websites %}
                         <option value="defalut">Please select a website!</option>
                     {% else %}
                         <option value="defalut">No favourite websites yet, click "add websites" to create one!</option>
                     {% endif %}
-                    </div>
                     {% for website in list_of_websites %}
                         <div class="website">
                             <option value={{ website.url }}>{{ website.name }}</option>
@@ -44,6 +45,9 @@
                 </select>  
             </div>  
             <div id="time">
+                <div class="form_text">
+                    Enter a duration of you break:
+                </div>
                 <input type="time" id="duration" name="duration">
             </div>
             <div id="submit">

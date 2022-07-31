@@ -4,6 +4,7 @@
 {% block stylesheet %}
 <link href="{% static 'take_a_break_app/main.css' %}" rel="stylesheet">
 <script src = "{% static 'take_a_break_app/main.js'  %}" ></script>
+<script src="https://cdn.jsdelivr.net/npm/html-duration-picker@latest/dist/html-duration-picker.min.js"></script>
 {% endblock %}
 
 
@@ -48,7 +49,7 @@
                 <div class="form_text">
                     Enter a duration of you break:
                 </div>
-                <input type="time" id="duration" name="duration">
+                <input class="html-duration-picker">
             </div>
             <div id="submit">
                 <input type="submit" value="take_a_break">

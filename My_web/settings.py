@@ -63,7 +63,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tqp-cp@*8$fw2^x6_v8o$9)h3j!)mr**%9dfvxf&wjie8c%xv)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["take-a-break.eba-puqckdcw.us-west-2.elasticbeanstalk.com", "127.0.0.1:8000", "127.0.0.1"]
 private_ip = get_linux_ec2_private_ip()

@@ -1,5 +1,7 @@
 from . import views
 from django.urls import path
+from django.conf.urls.static import static
+
 
 app_name = "take_a_break_app"
 urlpatterns = [

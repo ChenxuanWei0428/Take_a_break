@@ -14,8 +14,8 @@ from django.core.wsgi import get_wsgi_application
 
 sys.path.insert(0, '/opt/python/current/app')
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'My_web.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Take_a_break.settings')
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "My_web.settings" 
+os.environ["DJANGO_SETTINGS_MODULE"] = "Take_a_break.settings" 
 
 application = get_wsgi_application()

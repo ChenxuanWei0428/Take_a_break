@@ -12,46 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import requests
-# Other imports ...
+import dj_database_url
 
-def is_ec2_linux():
-    """Detect if we are running on an EC2 Linux Instance
-    See http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/identify_ec2_instances.html
-    """
-    if os.path.isfile("/sys/hypervisor/uuid"):
-        with open("/sys/hypervisor/uuid") as f:
-            uuid = f.read()
-            return uuid.startswith("ec2")
-    return False
-
-def get_token():
-    """Set the autorization token to live for 6 hours (maximum)"""
-    headers = {
-        'X-aws-ec2-metadata-token-ttl-seconds': '21600',
-    }
-    response = requests.put('http://169.254.169.254/latest/api/token', headers=headers)
-    return response.text
-
-
-def get_linux_ec2_private_ip():
-    """Get the private IP Address of the machine if running on an EC2 linux server.
-    See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html"""
-
-    if not is_ec2_linux():
-        return None
-    try:
-        token = get_token()
-        headers = {
-            'X-aws-ec2-metadata-token': f"{token}",
-        }
-        response = requests.get('http://169.254.169.254/latest/meta-data/local-ipv4', headers=headers)
-        return response.text
-    except:
-        return None
-    finally:
-        if response:
-            response.close()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -69,10 +31,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-tqp-cp@*8$fw2^
 
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ["take-a-break.eba-puqckdcw.us-west-2.elasticbeanstalk.com", "127.0.0.1:8000", "127.0.0.1"]
-private_ip = get_linux_ec2_private_ip()
-if private_ip:
-   ALLOWED_HOSTS.append(private_ip)
+ALLOWED_HOSTS = ["127.0.0.1:8000", "127.0.0.1"]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -88,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -162,10 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'take_a_break_app/static'),
+  os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 # Default primary key field type
@@ -173,3 +134,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

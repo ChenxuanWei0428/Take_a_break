@@ -8,13 +8,14 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
 from django.core.wsgi import get_wsgi_application
-from django.contrib.staticfiles.handlers import StaticFilesHandler
 
+sys.path.insert(0, '/opt/python/current/app')
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'My_web.settings')
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "mysite.settings" 
+os.environ["DJANGO_SETTINGS_MODULE"] = "My_web.settings" 
 
-application = StaticFilesHandler(get_wsgi_application())
+application = get_wsgi_application()

@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-tqp-cp@*8$fw2^
 
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ["127.0.0.1:8000", "127.0.0.1"]
+ALLOWED_HOSTS = ["take-a-break-app.herokuapp.com","127.0.0.1:8000", "127.0.0.1"]
 
 # Application definition
 

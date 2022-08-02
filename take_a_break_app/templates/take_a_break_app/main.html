@@ -19,7 +19,7 @@
     <br>
 </div>
 <div id="add">
-    <a herf="{% url 'take_a_break_app:add' %}">add a website</a>
+    <a href="{% url 'take_a_break_app:add' %}">add a website</a>
 </div>
 <div id="take_a_break">
     <form action = "{% url 'take_a_break_app:main' %}" method="post">
@@ -49,7 +49,7 @@
                 <div class="form_text">
                     Enter a duration of you break:
                 </div>
-                <input class="html-duration-picker">
+                <input class="html-duration-picker" name="time">
             </div>
             <div id="submit">
                 <input type="submit" value="take_a_break">

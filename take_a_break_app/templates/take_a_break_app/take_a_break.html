@@ -1,0 +1,23 @@
+{% extends "take_a_break_app/layout.html" %}
+{% load static %}
+
+{% block stylesheet %}
+<link href="{% static 'take_a_break_app/main.css' %}" rel="stylesheet">
+<script src="{% static 'take_a_break_app/break.js' %}"></script>
+{% endblock %}
+
+
+{% block body %}
+
+{{ website }}
+
+{{ time }}
+
+{{ host }}
+
+<script>
+    let time = "{{ time }}";
+    time_after_redirect(time);
+</script>
+
+{% endblock %}

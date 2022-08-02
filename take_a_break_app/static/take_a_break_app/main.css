@@ -4,6 +4,10 @@
 
 }
 
+#add > *{
+    text-decoration: none;
+}
+
 #take_a_break {
     display: flex;
     justify-content: center;

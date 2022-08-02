@@ -45,30 +45,32 @@ def main(request, guest):
             time = form.cleaned_data["time"]
             website = form.cleaned_data["website"]
             return HttpResponseRedirect(reverse("take_a_break_app:break", kwargs={"time": time, "website": website}))
-            
-    else:
-        if (guest):
-            return render(request, "take_a_break_app/main.html", {
-            })
-        try:
-            list_of_web_id = request.session["list_of_webs"]
-            list_of_websites = []
-            for web_id in list_of_web_id:
-                website = Websites.objects.get(pk=web_id)
-                list_of_websites.append(website)
-            if len(list_of_websites) == 0:
-                list_of_websites = None
-            return render(request, "take_a_break_app/main.html", {
-                "username" : request.session["username"],
-                "list_of_websites" : list_of_websites,
-            })
-        except KeyError:
-            # if no user info
-            return render(request, "take_a_break_app/main.html", {
-            })
+    if (guest):
+        return render(request, "take_a_break_app/main.html", {
+        })
+    try:
+        list_of_web_id = request.session["list_of_webs"]
+        list_of_websites = []
+        for web_id in list_of_web_id:
+            website = Websites.objects.get(pk=web_id)
+            list_of_websites.append(website)
+        if len(list_of_websites) == 0:
+            list_of_websites = None
+        return render(request, "take_a_break_app/main.html", {
+            "username" : request.session["username"],
+            "list_of_websites" : list_of_websites,
+        })
+    except KeyError:
+        # if no user info
+        return render(request, "take_a_break_app/main.html", {
+        })
 
-def take_a_break(request):
-    pass
+def take_a_break(request, time, website):
+    return render(request, "take_a_break_app/take_a_break.html", {
+        "website": website,
+        "time": time, 
+        "host": request.get_full_path()
+    })
 
 def add(request):
     return render(request, "take_a_break_app/add.html", {
@@ -90,7 +92,7 @@ def register_user(request):
             user = User.objects.create_user(username, email, password)
             user.save()
             User_web.objects.create(user=user)
-            return HttpResponseRedirect(reverse("take_a_break_app:main"), kwargs={"username": username})
+            return HttpResponseRedirect(reverse("take_a_break_app:start"))
         elif response_id == 1:
             error_message = "Please enter valid character"
         elif response_id == 2:
@@ -114,6 +116,11 @@ def register_complete(request, username):
 
 # all helpers
 
+def valid_take_a_break_format(form):
+    '''
+    0: All good
+    1: invalid time
+    '''
 
 def valid_user_register_format(form):
     '''
@@ -134,8 +141,6 @@ def valid_user_register_format(form):
     else:
         return 1
 
-def check_user(username, password):
-    pass
 # check if user exist already
 def check_user_exist(username):
     try:

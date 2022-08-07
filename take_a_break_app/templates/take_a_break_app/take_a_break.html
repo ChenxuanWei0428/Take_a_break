@@ -10,9 +10,15 @@
 {% block body %}
 <script>
     let time = "{{ time }}";
-    time_after_redirect(time);
+    let website = "{{ website }}";
+    //time_after_redirect(time);
 </script>
 
+<div id="timer">
+
+</div>
 
 
+
+<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
 {% endblock %}

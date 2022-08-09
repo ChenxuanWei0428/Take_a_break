@@ -12,12 +12,31 @@
     let time = "{{ time }}";
     let website = "{{ website }}";
     //time_after_redirect(time);
-    let counter = get_counter(time);
+    let counter = time;
+    function update() {
+        if (counter != "00:00:00") {
+            counter = get_counter(counter);
+            ReactDOM.render(
+                counter, 
+                document.getElementById("timer")
+            );
+        } else {
+            ReactDOM.render(
+                "Time up!", 
+                document.getElementById("timer")
+            );
+        }
+    }
+    setInterval(update, 1000);
 </script>
 
-<span ng-bind="counter"></span>
+
+<div id="timer">
+
+</div>
 
 
-
-<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
 {% endblock %}

@@ -19,8 +19,6 @@ function jump_link(link) {
 
 }
 
-console.log("test");
-
 function get_counter(time) {
     // return a string that lower the second by one
     let hour = Number(time.slice(0,2));
@@ -30,27 +28,25 @@ function get_counter(time) {
         second = 59;
         minutes--;
     }
-    
     if (minutes < 0) {
         minutes = 59;
         hour -= 1;
     }
-
     if (hour < 0) {
         return false;
     }
     hour_str = hour.toLocaleString("en-US", {
-        minimumIntegerDigirts: 2,
+        minimumIntegerDigits: 2,
         useGrouping: false,
     });
     minutes_str = minutes.toLocaleString("en-US", {
-        minimumIntegerDigirts: 2,
+        minimumIntegerDigits: 2,
         useGrouping: false,
     });
     second_str = second.toLocaleString("en-US", {
-        minimumIntegerDigirts: 2,
+        minimumIntegerDigits: 2,
         useGrouping: false,
     });
-    console.log(hour_str+":"+minutes_str+":"+second_str);
     return hour_str+":"+minutes_str+":"+second_str;
+    
 }

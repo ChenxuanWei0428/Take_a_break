@@ -19,20 +19,38 @@ function jump_link(link) {
 
 }
 
-function counter(time) {
+console.log("test");
+
+function get_counter(time) {
     // return a string that lower the second by one
-    hour = Number(time.slice(0,2));
-    minutes = Number(time.slice(3, 5));
-    second = Number(time.slice(6, 8))-1;
+    let hour = Number(time.slice(0,2));
+    let minutes = Number(time.slice(3, 5));
+    let second = Number(time.slice(6, 8))-1;
     if (second < 0){
         second = 59;
         minutes--;
     }
+    
     if (minutes < 0) {
         minutes = 59;
-        hours -= 1;
+        hour -= 1;
     }
-    if (hours < 0) {
-        
+
+    if (hour < 0) {
+        return false;
     }
+    hour_str = hour.toLocaleString("en-US", {
+        minimumIntegerDigirts: 2,
+        useGrouping: false,
+    });
+    minutes_str = minutes.toLocaleString("en-US", {
+        minimumIntegerDigirts: 2,
+        useGrouping: false,
+    });
+    second_str = second.toLocaleString("en-US", {
+        minimumIntegerDigirts: 2,
+        useGrouping: false,
+    });
+    console.log(hour_str+":"+minutes_str+":"+second_str);
+    return hour_str+":"+minutes_str+":"+second_str;
 }

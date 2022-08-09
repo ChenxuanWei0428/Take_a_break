@@ -12,11 +12,10 @@
     let time = "{{ time }}";
     let website = "{{ website }}";
     //time_after_redirect(time);
+    let counter = get_counter(time);
 </script>
 
-<div id="timer">
-
-</div>
+<span ng-bind="counter"></span>
 
 
 

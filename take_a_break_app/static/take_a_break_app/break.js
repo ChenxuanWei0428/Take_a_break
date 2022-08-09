@@ -14,3 +14,25 @@ function get_total_second(time) {
     // time should be in format of hh:mm:ss
     return Number(time.slice(0,2))*3600+Number(time.slice(3, 5))*60+Number(time.slice(6, 8));
 }
+
+function jump_link(link) {
+
+}
+
+function counter(time) {
+    // return a string that lower the second by one
+    hour = Number(time.slice(0,2));
+    minutes = Number(time.slice(3, 5));
+    second = Number(time.slice(6, 8))-1;
+    if (second < 0){
+        second = 59;
+        minutes--;
+    }
+    if (minutes < 0) {
+        minutes = 59;
+        hours -= 1;
+    }
+    if (hours < 0) {
+        
+    }
+}

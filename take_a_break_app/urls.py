@@ -13,5 +13,6 @@ urlpatterns = [
     path("register", views.register_user, name = "register"),
     path("register_complete/<str:username>", views.register_complete, name = "register_complete"),
     path("recover_account", views.recover_account, name="recover_account"),
-    path("add", views.add, name="add"),
+    path("add", views.add, {"guest": False}, name="add"),
+    path("add/guest", views.add, {"guest": True}, name="add_guest"),
 ]

@@ -1,8 +1,6 @@
 function time_after_redirect(time) {
     target_url = "http://"+window.location.host+"/main";
-    break_time = get_total_second(time);
-    console.log(break_time);
-    console.log(target_url);
+    break_time = get_total_second(time)+5;
     
     var timer = setTimeout(function() {
         window.location.href=target_url;
@@ -50,3 +48,14 @@ function get_counter(time) {
     return hour_str+":"+minutes_str+":"+second_str;
     
 }
+
+function open_in_new_tab(url) {
+    let form = document.createElement("form");
+    form.method = "GET";
+    form.action = url;
+    form.target = "_blank";
+    document.body.appendChild(form);
+    form.submit();
+}
+
+   

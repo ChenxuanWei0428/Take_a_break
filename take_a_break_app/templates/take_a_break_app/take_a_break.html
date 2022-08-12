@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block stylesheet %}
-<link href="{% static 'take_a_break_app/main.css' %}" rel="stylesheet">
+<link href="{% static 'take_a_break_app/take_a_break.css' %}" rel="stylesheet">
 <script src="{% static 'take_a_break_app/break.js' %}"></script>
 {% endblock %}
 
@@ -30,11 +30,13 @@
     setInterval(update, 1000);
 </script>
 
-
-<div id="timer">
-
+<div id="text">
+    You have the following time remaining for your break:
 </div>
 
+
+<div id="timer">
+</div>
 
 <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
 <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>

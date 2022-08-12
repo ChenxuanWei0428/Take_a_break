@@ -72,10 +72,18 @@ def take_a_break(request, time, website):
         "host": request.get_full_path()
     })
 
-def add(request):
-    return render(request, "take_a_break_app/add.html", {
-
-    })
+def add(request, guest):
+    if (guest):
+        return render(request, "take_a_break_app/add.html", {
+        })
+    else:
+        try:
+            return render(request, "take_a_break_app/add.html", {
+                "username" : request.session["username"],
+            })
+        except KeyError:
+            return render(request, "take_a_break_app/add.html", {
+            })
 
 def recover_account(request):
     pass

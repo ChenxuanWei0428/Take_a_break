@@ -19,7 +19,12 @@
     <br>
 </div>
 <div id="add">
-    <a href="{% url 'take_a_break_app:add' %}">add a website</a>
+    {% if username %}
+        <a href="{% url 'take_a_break_app:add' %}">add a website</a>
+    {% else %}
+        <a href="{% url 'take_a_break_app:add_guest' %}">add a website</a>
+    {% endif %}
+    
 </div>
 <div id="take_a_break">
     <form action = "{% url 'take_a_break_app:main' %}" method="post">

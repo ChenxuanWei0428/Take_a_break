@@ -1,0 +1,12 @@
+#text {
+    text-align: center;
+    font-size: 3vw;
+    margin-bottom: 100px;
+}
+
+#timer {
+    text-align: center;
+    padding: 5vw;
+    border: solid black 1px;
+    font-size: large;
+}

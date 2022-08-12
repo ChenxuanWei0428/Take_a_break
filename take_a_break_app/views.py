@@ -20,11 +20,6 @@ def start(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 request.session["username"] = username
-                list_of_webs = list(User_web.objects.get(user=user).websites.all())
-                web_pks = []
-                for web in list_of_webs:
-                    web_pks.append(web.id)
-                request.session["list_of_webs"] = web_pks
                 return HttpResponseRedirect(reverse("take_a_break_app:main"))
             else:
                 error_message = "Unauthrized login"
@@ -44,12 +39,13 @@ def main(request, guest):
         if form.is_valid():
             time = form.cleaned_data["time"]
             website = form.cleaned_data["website"]
-            return HttpResponseRedirect(reverse("take_a_break_app:break", kwargs={"time": time, "website": website}))
+            if valid_take_a_break_format(website):
+                return HttpResponseRedirect(reverse("take_a_break_app:break", kwargs={"time": time, "website": website}))
     if (guest):
         return render(request, "take_a_break_app/main.html", {
         })
     try:
-        list_of_web_id = request.session["list_of_webs"]
+        list_of_web_id = get_all_website_id(request.session["username"])
         list_of_websites = []
         for web_id in list_of_web_id:
             website = Websites.objects.get(pk=web_id)
@@ -73,6 +69,17 @@ def take_a_break(request, time, website):
     })
 
 def add(request, guest):
+    if (request.method == "POST"):
+        form = forms.add_web(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            url = form.cleaned_data["url"]
+            if valid_website(url):
+                create_websites(request.session["username"], name, url)
+                return render(request, "take_a_break_app/add.html", {
+                    "username" : request.session["username"],
+                    "message": "add successfully"
+                })
     if (guest):
         return render(request, "take_a_break_app/add.html", {
         })
@@ -124,11 +131,15 @@ def register_complete(request, username):
 
 # all helpers
 
-def valid_take_a_break_format(form):
+def valid_website(url):
+    return True
+
+def valid_take_a_break_format(website):
     '''
     0: All good
     1: invalid time
     '''
+    return True
 
 def valid_user_register_format(form):
     '''
@@ -158,12 +169,21 @@ def check_user_exist(username):
         return True
 
 def create_websites(username, name, url):
-    web = Websites.objects.get(name=name, url=url)
-    if web is None:
+    try:
+        web = Websites.objects.get(name=name, url=url)
+    except Websites.DoesNotExist:
         web = Websites.objects.create(name=name, url=url)
     user = User.objects.get(username=username)
     User_web.objects.get(user=user).websites.add(web)
     
+
+def get_all_website_id(username):
+    user=User.objects.get(username=username)
+    list_of_webs = list(User_web.objects.get(user=user).websites.all())
+    web_pks = []
+    for web in list_of_webs:
+        web_pks.append(web.id)
+    return web_pks
 
 def log(message):
     logger = logging.getLogger(__name__)

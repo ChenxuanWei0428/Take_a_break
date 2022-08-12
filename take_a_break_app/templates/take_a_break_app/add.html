@@ -7,17 +7,45 @@
 
 
 {% block body %}
+{% if message %}
+    <script>
+        alert("{{ message }}");
+    </script>
+{% endif %}
 <div id = "start_intro">
     {% if username %}
         <p>Hello, {{ username }}!</p>
     {% else %}
-        <p>If you want, please register in this <a href="{% url 'take_a_break_app:register' %}">link</a>
+        <p>Please register in this <a href="{% url 'take_a_break_app:register' %}">link before trying to add a website</a>
         </p>
     {% endif %}
     <br>
 </div>
 
+<div id="add_web">
+    <form action = "{% url 'take_a_break_app:add' %}" method="post">
+        {% csrf_token %}
+        <div id="form_items">
+            <div id="form_intro">
+                Ready to take a break? enter the duration of your break and the website you want to go
+            </div>
+            <div id="websites">
+                <div class="form_text">
+                    Please enter a customized name:
+                </div>
+                <input type="text" name="name">
+            </div>  
+            <div id="time">
+                <div class="form_text">
+                    Please enter the full url of the website:
+                </div>
+                <input type="text" name="url">
+            </div>
+            <div id="submit">
+                <input type="submit" value="add it!">
+            </div>
+        </div>
+    </form>
+</div>
 
-
-<input type="hidden" id="index" name="index" value=0>
 {% endblock %}

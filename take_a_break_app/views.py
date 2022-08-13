@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate
 from django.core import serializers
 import logging
 import datetime
+import re
 
 def start(request):
     error_message = ""
@@ -134,6 +135,12 @@ def register_user(request):
             error_message = "Please double check your password"
         elif response_id == 3:
             error_message =  "User already exist"
+        elif response_id == 4:
+            error_message = "Username is too long"
+        elif response_id == 5:
+            error_message = "Email is too long"
+        elif response_id == 6:
+            error_message = "Password is too long"
         log(error_message)
         return render(request, "take_a_break_app/register.html", {
                 "user_form": form, #todo, add value back
@@ -184,6 +191,8 @@ def valid_user_register_format(form):
     0: All good
     1: invalid form
     2: different password and confirm password
+    3: user_already exist
+    4: username or password or email is too long
     '''
     if form.is_valid():
         username = form.cleaned_data["username"]
@@ -192,6 +201,13 @@ def valid_user_register_format(form):
         confirmed_password = form.cleaned_data["confirm_password"]
         if (password != confirmed_password):
             return 2
+        if len(username)> 100:
+            return 4
+        if len(email)> 100:
+            return 5
+        pattern = "^\S+@\S+\.\S+$"
+        if len(password)> 100:
+            return 6
         if not check_user_exist(username):
             return 3 
         return 0

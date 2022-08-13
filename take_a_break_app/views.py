@@ -84,11 +84,11 @@ def add(request, guest):
                 create_websites(request.session["username"], name, url)
                 message = "add successfully"
             elif response_code == 1:
-                pass
+                message = "please enter full url"
             elif response_code == 2:
-                pass
+                message = "Can not find this website"
             elif response_code == 3:
-                messgae = 0
+                message = "Please no not take a break in this website"
             return render(request, "take_a_break_app/add.html", {
                     "username" : request.session["username"],
                     "message": message
@@ -157,13 +157,16 @@ def valid_website(website):
     if (website.startswith("https://") or website.startswith("http://")):
         if website.startswith("https://take-a-break-app.herokuapp.com/"):
             return 3
-        with requests.get(website) as response:
-            if response.status_code != 200:
-                return 2
-            else:
+        try:
+            response = requests.get(website)
+            if response.status_code == 200:
                 return 0
+            else: 
+                return 2
+        except:
+            return 2
     else:
-        return False
+        return 1
         
 
 def valid_user_register_format(form):

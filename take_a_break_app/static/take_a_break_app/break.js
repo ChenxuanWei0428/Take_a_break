@@ -50,12 +50,8 @@ function get_counter(time) {
 }
 
 function open_in_new_tab(url) {
-    let form = document.createElement("form");
-    form.method = "GET";
-    form.action =  url;
-    form.target = "_blank";
-    document.body.appendChild(form);
-    form.submit();
+    var win = window.open(url, '_blank');
+    win.focus();
 }
 
    

@@ -22,6 +22,8 @@
     <br>
 </div>
 
+
+{% if username %}
 <div id="add_web">
     <form action = "{% url 'take_a_break_app:add' %}" method="post">
         {% csrf_token %}
@@ -47,5 +49,7 @@
         </div>
     </form>
 </div>
+
+{% endif %}
 
 {% endblock %}

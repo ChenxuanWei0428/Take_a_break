@@ -1,5 +1,8 @@
+from urllib import response
 from django.http import HttpResponse
 from django.shortcuts import render
+import requests
+from requests import request
 from . import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -74,11 +77,20 @@ def add(request, guest):
         if form.is_valid():
             name = form.cleaned_data["name"]
             url = form.cleaned_data["url"]
-            if valid_website(url):
+            response_code = valid_website(url)
+            message = ""
+            if response_code == 0:
                 create_websites(request.session["username"], name, url)
-                return render(request, "take_a_break_app/add.html", {
+                message = "add successfully"
+            elif response_code == 1:
+                pass
+            elif response_code == 2:
+                pass
+            elif response_code == 3:
+                messgae = 0
+            return render(request, "take_a_break_app/add.html", {
                     "username" : request.session["username"],
-                    "message": "add successfully"
+                    "message": message
                 })
     if (guest):
         return render(request, "take_a_break_app/add.html", {
@@ -131,15 +143,27 @@ def register_complete(request, username):
 
 # all helpers
 
-def valid_website(url):
+def valid_take_a_break_format(website):
     return True
 
-def valid_take_a_break_format(website):
+def valid_website(website):
     '''
     0: All good
-    1: invalid time
+    1: not full url (missing http header)
+    2: can't find website
+    3: link to website itself
     '''
-    return True
+    if (website.startswith("https://") or website.startswith("http://")):
+        if website.startswith("https://take-a-break-app.herokuapp.com/"):
+            return 3
+        with requests.get(website) as response:
+            if response.status_code != 200:
+                return 2
+            else:
+                return 0
+    else:
+        return False
+        
 
 def valid_user_register_format(form):
     '''

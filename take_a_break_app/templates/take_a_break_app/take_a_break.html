@@ -6,7 +6,6 @@
 <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
 <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
 <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="{% static 'take_a_break_app/break.js' %}"></script>
 <script>
     let time = "{{ time }}";
@@ -15,6 +14,7 @@
     let counter = time;
     let check = true;
     console.log(website);
+    open_in_new_tab(website)
     function update_timer() {
         if (counter != "00:00:00") {
             counter = get_counter(counter);

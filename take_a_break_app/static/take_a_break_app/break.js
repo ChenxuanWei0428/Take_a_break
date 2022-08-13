@@ -1,10 +1,16 @@
 function time_after_redirect(time) {
     target_url = "http://"+window.location.host+"/main";
-    break_time = get_total_second(time)+5;
+    break_time = get_total_second(time);
+
+    var noti = setTimeout(function() {
+        notify()
+    }, break_time*1000);
+
+    jump_time = break_time+5;
     
     var timer = setTimeout(function() {
         window.location.href=target_url;
-    }, break_time*1000);
+    }, jump_time*1000);
     
 }
 
@@ -54,4 +60,14 @@ function open_in_new_tab(url) {
     win.focus();
 }
 
+function notify() {
+    if (Notification.permission !== 'granted')
+        Notification.requestPermission();
+    else {
+        let notification = new Notification('Notification title', {
+            body: "Your break time is up!",
+        });
+        //window.open('http://127.0.0.1:8000/main');
+    }
+}
    

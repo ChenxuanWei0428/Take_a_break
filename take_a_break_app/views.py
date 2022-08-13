@@ -42,8 +42,9 @@ def main(request, guest):
         if form.is_valid():
             time = form.cleaned_data["time"]
             website = form.cleaned_data["website"]
+            request.session["website"] = website
             if valid_take_a_break_format(website):
-                return HttpResponseRedirect(reverse("take_a_break_app:break", kwargs={"time": time, "website": website}))
+                return HttpResponseRedirect(reverse("take_a_break_app:break", kwargs={"time": time}))
     if (guest):
         return render(request, "take_a_break_app/main.html", {
         })
@@ -64,9 +65,9 @@ def main(request, guest):
         return render(request, "take_a_break_app/main.html", {
         })
 
-def take_a_break(request, time, website):
+def take_a_break(request, time):
     return render(request, "take_a_break_app/take_a_break.html", {
-        "website": website,
+        "website": request.session["website"],
         "time": time, 
         "host": request.get_full_path()
     })

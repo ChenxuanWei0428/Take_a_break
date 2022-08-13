@@ -8,9 +8,10 @@
 <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
 <script src="{% static 'take_a_break_app/break.js' %}"></script>
 <script>
+    // counter and jump link
     let time = "{{ time }}";
     let website = "{{ website }}";
-    //time_after_redirect(time);
+    time_after_redirect(time);
     let counter = time;
     let check = true;
     console.log(website);
@@ -31,6 +32,21 @@
     }
     setInterval(update_timer, 1000);
 </script>
+<script>
+    //notification
+    document.addEventListener('DOMContentLoaded', function() {
+    if (!Notification) {
+        ReactDOM.render(
+            'Desktop notifications not available in your browser. Please check the time by yourself',
+            document.getElementById("alert_message")
+            );
+        return;
+    }
+
+    if (Notification.permission !== 'granted')
+        Notification.requestPermission();
+    });
+</script>
 {% endblock %}
 
 
@@ -42,6 +58,9 @@
 
 
 <div id="timer">
+</div>
+
+<div id="alert_message">
 </div>
 
 

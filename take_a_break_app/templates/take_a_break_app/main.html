@@ -9,6 +9,11 @@
 
 
 {% block body %}
+{% if message %} 
+<script>
+    alert("{{ message }}")
+</script>
+{% endif %}
 <div id = "intro">
     {% if username %}
         <p>Hello, {{ username }}!</p>

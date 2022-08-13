@@ -64,8 +64,7 @@ function notify() {
     if (Notification.permission !== 'granted')
         Notification.requestPermission();
     else {
-        let notification = new Notification('Notification title', {
-            body: "Your break time is up!",
+        let notification = new Notification('Your break time is up!', {
         });
         //window.open('http://127.0.0.1:8000/main');
     }

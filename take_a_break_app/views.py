@@ -37,6 +37,7 @@ def still_building(request):
     return render(request, "take_a_break_app/still_building.html")
 
 def main(request, guest):
+    message = ""
     if (request.method == "POST"):
         form = forms.take_a_break(request.POST)
         if form.is_valid():
@@ -45,8 +46,12 @@ def main(request, guest):
             request.session["website"] = website
             if valid_take_a_break_format(website):
                 return HttpResponseRedirect(reverse("take_a_break_app:break", kwargs={"time": time}))
+            else:
+                message = "please select a website"
+    
     if (guest):
         return render(request, "take_a_break_app/main.html", {
+            "message": message
         })
     try:
         list_of_web_id = get_all_website_id(request.session["username"])
@@ -59,10 +64,12 @@ def main(request, guest):
         return render(request, "take_a_break_app/main.html", {
             "username" : request.session["username"],
             "list_of_websites" : list_of_websites,
+            "message": message
         })
     except KeyError:
         # if no user info
         return render(request, "take_a_break_app/main.html", {
+            "message": message
         })
 
 def take_a_break(request, time):
@@ -145,7 +152,10 @@ def register_complete(request, username):
 # all helpers
 
 def valid_take_a_break_format(website):
-    return True
+    if website == "defalut":
+        return False
+    else:
+        return True
 
 def valid_website(website):
     '''

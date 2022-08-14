@@ -97,6 +97,10 @@ def add(request, guest):
                 message = "Can not find this website"
             elif response_code == 3:
                 message = "Please no not take a break in this website"
+            elif response_code == 4:
+                message = "the length of the url is too long"
+            elif len(name)> 900:
+                message = "the length of the name is too long"
             return render(request, "take_a_break_app/add.html", {
                     "username" : request.session["username"],
                     "message": message
@@ -170,8 +174,11 @@ def valid_website(website):
     1: not full url (missing http header)
     2: can't find website
     3: link to website itself
+    4. length too long
     '''
     if (website.startswith("https://") or website.startswith("http://")):
+        if len(website) > 900:
+            return 4
         if website.startswith("https://take-a-break-app.herokuapp.com/"):
             return 3
         try:

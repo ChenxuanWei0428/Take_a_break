@@ -145,6 +145,8 @@ def register_user(request):
             error_message = "Email is too long"
         elif response_id == 6:
             error_message = "Password is too long"
+        elif response_id == 7:
+            error_message = "Incorrect email format"
         log(error_message)
         return render(request, "take_a_break_app/register.html", {
                 "user_form": form, #todo, add value back
@@ -217,9 +219,20 @@ def valid_user_register_format(form):
             return 6
         if not check_user_exist(username):
             return 3 
+        if not valid_email(email):
+            return 7
         return 0
     else:
         return 1
+
+def valid_email(email):
+    pattern = "^\S+@\S+\.\S+$"
+    objs = re.search(pattern, email)
+    try:
+        if objs.string == email:
+            return True
+    except:
+        return False
 
 # check if user exist already
 def check_user_exist(username):

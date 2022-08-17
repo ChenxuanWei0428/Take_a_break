@@ -11,7 +11,7 @@
     <h2>Please Register with the following information</h2>
 </div>
 <div id = "register_form">
-    <form action = "{% url 'take_a_break_app:register' %}" method="post">
+    <form name="register" action = "{% url 'take_a_break_app:register' %}" method="post">
         {% csrf_token %}
         <div class = "form_item">
             <div class="form_text">

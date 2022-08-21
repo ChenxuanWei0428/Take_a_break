@@ -147,7 +147,6 @@ def register_user(request):
             error_message = "Password is too long"
         elif response_id == 7:
             error_message = "Incorrect email format"
-        log(error_message)
         return render(request, "take_a_break_app/register.html", {
                 "user_form": form, #todo, add value back
                 "error_message": error_message,
@@ -196,6 +195,7 @@ def valid_website(website):
         
 
 def valid_user_register_format(form):
+    # please also change register.js
     '''
     0: All good
     1: invalid form

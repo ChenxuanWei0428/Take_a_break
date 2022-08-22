@@ -11,8 +11,10 @@ function validateForm() {
         error_message = "Username is too long";
     } else if (email.length > 100) {
         error_message = "Email is too long";
-    } else {
-
+    } else if (password.length > 100) {
+        error_message = "Password is too long";
+    }  else {
+        
     }
     /*
     if (password != confirmed_password):

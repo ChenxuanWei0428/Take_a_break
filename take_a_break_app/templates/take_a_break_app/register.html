@@ -3,6 +3,10 @@
 
 {% block stylesheet %}
 <link href="{% static 'take_a_break_app/register.css' %}" rel="stylesheet">
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script src="{% static 'take_a_break_app/register.js' %}"></script>
 {% endblock %}
 
 
@@ -10,7 +14,7 @@
 <div id = "register_intro">
     <h2>Please Register with the following information</h2>
 </div>
-<div id = "register_form">
+<div id="register_form">
     <form name="register" action = "{% url 'take_a_break_app:register' %}" method="post">
         {% csrf_token %}
         <div class = "form_item">
@@ -23,7 +27,7 @@
             <div class="form_text">
                 <label for="email">Email</label>
             </div>
-            <input id="email" name="email" type="text">
+            <input id="email" name="email" type="text" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
         </div>
         <div class = "form_item">
             <div class="form_text">
@@ -50,6 +54,15 @@
         </div>
     </form>
 </div>
+<script>
+    const form = document.getElementById("register_form").getElementsByTagName("form")[0];
+    form.addEventListener("submit", (event) => {
+        if (!validateForm()) {
+            event.preventDefault();
+        };
+    }, false);
+</script>
+
 {% endblock %}
 
 

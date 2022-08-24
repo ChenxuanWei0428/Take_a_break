@@ -57,10 +57,12 @@
 <script>
     const form = document.getElementById("register_form").getElementsByTagName("form")[0];
     form.addEventListener("submit", (event) => {
+        console.log("Test")
         if (!validateForm()) {
             event.preventDefault();
         };
-    }, false);
+        event.preventDefault();
+    });
 </script>
 
 {% endblock %}

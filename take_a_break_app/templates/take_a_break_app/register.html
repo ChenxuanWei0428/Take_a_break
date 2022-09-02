@@ -90,11 +90,9 @@
     };
     const form = document.getElementById("register_form").getElementsByTagName("form")[0];
     form.addEventListener("submit", (event) => {
-        event.preventDefault();
         if (!validate_form()) {
             event.preventDefault();
         }
-        event.preventDefault();
     });
 </script>
 

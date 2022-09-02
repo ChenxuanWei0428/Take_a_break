@@ -1,10 +1,10 @@
-function validateForm() {
-    console.log("check")
+function validate_form() {
     // please refer to views.py for changes
-    let username = forms["register"]["username"].value;
-    let email = forms["register"]["email"].value;
-    let password = forms["register"]["password"].value;
-    let confirm_password = forms["register"]["confirm_password"].value;
+    let form = document.getElementById("re_form").elements;
+    let username = form["username"].value;
+    let email = form["email"].value;
+    let password =form["password"].value;
+    let confirm_password = form["confirm_password"].value;
     let error_message = ""
     if (password != confirm_password) {
         error_message = "Please double check your password";
@@ -17,6 +17,7 @@ function validateForm() {
     }  else if (!valid_email(email)) {
         error_message = "Incorrect email format";
     }
+    console.log("error_message")
     if (error_message == "") {
         return true;
     } else {
@@ -24,12 +25,11 @@ function validateForm() {
             error_message,
             document.getElementById('error_message')
         );
-        console.log("test")
         return false;
     }
-}
+};
 
 function valid_email(email) {
     let pattern = /^\S+@\S+\.\S+$/i;
     return email.search(pattern) != -1;
-}
+};

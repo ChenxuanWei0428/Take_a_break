@@ -6,7 +6,6 @@
 <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
 <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
 <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
-<script src="{% static 'take_a_break_app/register.js' %}"></script>
 {% endblock %}
 
 
@@ -15,7 +14,7 @@
     <h2>Please Register with the following information</h2>
 </div>
 <div id="register_form">
-    <form name="register" action = "{% url 'take_a_break_app:register' %}" method="post">
+    <form id="re_form" name="register" action = "{% url 'take_a_break_app:register' %}" method="post">
         {% csrf_token %}
         <div class = "form_item">
             <div class="form_text">
@@ -27,7 +26,7 @@
             <div class="form_text">
                 <label for="email">Email</label>
             </div>
-            <input id="email" name="email" type="text" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
+            <input id="email" name="email" type="text">
         </div>
         <div class = "form_item">
             <div class="form_text">
@@ -55,12 +54,46 @@
     </form>
 </div>
 <script>
+    function validate_form() {
+        // please refer to views.py for changes
+        let form = document.getElementById("re_form").elements;
+        let username = form["username"].value;
+        let email = form["email"].value;
+        let password =form["password"].value;
+        let confirm_password = form["confirm_password"].value;
+        let error_message = ""
+        if (password != confirm_password) {
+            error_message = "Please double check your password";
+        } else if (username.length > 100) {
+            error_message = "Username is too long";
+        } else if (email.length > 100) {
+            error_message = "Email is too long";
+        } else if (password.length > 100) {
+            error_message = "Password is too long";
+        }  else if (!valid_email(email)) {
+            error_message = "Incorrect email format";
+        }
+        if (error_message == "") {
+            return true;
+        } else {
+            ReactDOM.render(
+                error_message,
+                document.getElementById('error_message')
+            );
+            return false;
+        }
+    };
+
+    function valid_email(email) {
+        let pattern = /^\S+@\S+\.\S+$/i;
+        return email.search(pattern) != -1;
+    };
     const form = document.getElementById("register_form").getElementsByTagName("form")[0];
     form.addEventListener("submit", (event) => {
-        console.log("Test")
-        if (!validateForm()) {
+        event.preventDefault();
+        if (!validate_form()) {
             event.preventDefault();
-        };
+        }
         event.preventDefault();
     });
 </script>

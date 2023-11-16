@@ -1,3 +1,3 @@
 # Take_a_break
  
-The website is currently host on: https://take-a-break-app.herokuapp.com/
+This is a website that allow you to take a break and get notified when it is done!
